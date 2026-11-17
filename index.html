@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>후쿠오카 가족여행 · 11.19–11.21</title>
+<meta name="theme-color" content="#12466B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="후쿠오카">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⛴</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EDF2F4; --paper:#FFFFFF; --ink:#18232E; --sub:#4A5966; --line:#C9D5DC;
+  --sea:#12466B; --sea-soft:#DCE8F0; --on:#FFFFFF;
+  --fam:#0E6E5A; --fam-soft:#D9EFE8;
+  --warn-bg:#FFF2D9; --warn-ink:#7A4A00;
+  --now:#FFF6C2;
+  --tab-h:76px;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0F1820; --paper:#18242F; --ink:#EEF3F6; --sub:#A9B8C3; --line:#2F3F4C;
+    --sea:#7DB6E0; --sea-soft:#1D3447; --on:#0F1820; --fam:#6CCDB2; --fam-soft:#173A33;
+    --warn-bg:#3A2C10; --warn-ink:#F3C978; --now:#3A3410; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0F1820; --paper:#18242F; --ink:#EEF3F6; --sub:#A9B8C3; --line:#2F3F4C;
+  --sea:#7DB6E0; --sea-soft:#1D3447; --on:#0F1820; --fam:#6CCDB2; --fam-soft:#173A33;
+  --warn-bg:#3A2C10; --warn-ink:#F3C978; --now:#3A3410; color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 90px);-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  font-size:19px;line-height:1.6;word-break:keep-all;overflow-wrap:anywhere}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--sea)}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--sea);outline-offset:3px}
+img{max-width:100%}
+
+/* header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--sea);color:var(--on);padding:14px 20px 16px}
+.top h1{margin:0;font-size:24px;line-height:1.3;font-weight:700}
+.top p{margin:2px 0 0;font-size:17px;opacity:.9}
+
+main{max-width:560px;margin:0 auto;padding:18px 16px calc(var(--tab-h) + 28px)}
+section[data-view]{display:none}
+section[data-view].on{display:block}
+h2{font-size:25px;margin:30px 4px 12px;line-height:1.35}
+section > h2:first-child{margin-top:4px}
+h3{font-size:21px;margin:0 0 8px;line-height:1.4}
+p{margin:0 0 10px}
+.lead{color:var(--sub);font-size:17px;margin:0 4px 10px}
+
+/* segmented control */
+.seg{display:grid;gap:8px;background:var(--paper);border:2px solid var(--line);border-radius:16px;padding:6px;margin-bottom:6px}
+.seg.two{grid-template-columns:1fr 1fr}
+.seg.three{grid-template-columns:1fr 1fr 1fr}
+.seg button{font:inherit;font-size:19px;font-weight:700;min-height:56px;border:0;border-radius:11px;background:transparent;color:var(--sub);cursor:pointer;line-height:1.25}
+.seg button small{display:block;font-size:15px;font-weight:500}
+.seg button[aria-pressed="true"]{background:var(--sea);color:var(--on)}
+.seg button[aria-pressed="true"][data-who="fam"]{background:var(--fam)}
+
+/* ticket */
+.ticket{--c:var(--fam);--cs:var(--fam-soft);background:var(--paper);border-radius:18px;margin:14px 0;overflow:hidden;border:2px solid var(--line)}
+.ticket.isum{--c:var(--sea);--cs:var(--sea-soft)}
+.ticket .head{background:var(--cs);padding:12px 18px;display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
+.ticket .day{font-size:20px;font-weight:700;color:var(--c)}
+.ticket .fno{font-size:17px;font-weight:500}
+.route{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:16px 18px 6px;gap:6px}
+.route .t{font-size:40px;font-weight:700;line-height:1.1;letter-spacing:-.5px}
+.route .city{font-size:19px;font-weight:500;color:var(--sub)}
+.route .r{text-align:right}
+.route .arrow{font-size:26px;color:var(--c)}
+.perf{border:0;border-top:2px dashed var(--line);margin:12px 0 0}
+.ticket .foot{padding:12px 18px 16px;font-size:18px}
+.ticket .foot strong{color:var(--c)}
+
+/* generic card */
+.card{background:var(--paper);border:2px solid var(--line);border-radius:18px;margin:14px 0;overflow:hidden}
+.card .pad{padding:16px 18px}
+
+/* stay */
+.band{display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:2px solid var(--line)}
+.night{flex:none;width:64px;height:64px;border-radius:14px;background:var(--sea);color:var(--on);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.1}
+.night b{font-size:26px}
+.night span{font-size:14px}
+.name{font-size:21px;font-weight:700;line-height:1.35}
+.jp{font-size:16px;color:var(--sub)}
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 14px}
+.fact{background:var(--bg);border-radius:12px;padding:10px 12px}
+.fact dt{font-size:15px;color:var(--sub)}
+.fact dd{margin:0;font-size:22px;font-weight:700}
+.fact.wide{grid-column:1/-1}
+.resv{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.resv dd{font-size:24px;letter-spacing:1px}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 14px}
+.tags span{font-size:17px;font-weight:500;padding:6px 14px;border-radius:999px;background:var(--fam-soft);color:var(--fam)}
+.notice{background:var(--warn-bg);color:var(--warn-ink);border-radius:12px;padding:12px 14px;font-size:18px;margin:0 0 14px}
+.notice b{font-size:20px}
+.map{width:100%;height:220px;border:0;border-radius:12px;display:block;margin:0 0 12px;background:var(--bg)}
+.map.tall{height:300px}
+.btns{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.btn{font:inherit;font-size:18px;font-weight:700;min-height:56px;border-radius:12px;border:2px solid var(--sea);background:transparent;color:var(--sea);display:flex;align-items:center;justify-content:center;text-decoration:none;cursor:pointer;padding:6px 10px;text-align:center;line-height:1.3}
+.btn.solid{background:var(--sea);color:var(--on)}
+.btn.full{grid-column:1/-1}
+.copy{font:inherit;font-size:16px;font-weight:700;min-height:44px;padding:0 14px;border-radius:10px;border:2px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer;flex:none}
+
+/* timeline */
+.tl{list-style:none;margin:14px 0 0;padding:0}
+.tl li{display:grid;grid-template-columns:76px 1fr;gap:12px;background:var(--paper);border:2px solid var(--line);border-radius:16px;padding:14px 16px;margin:0 0 10px;position:relative}
+.tl .at{font-size:22px;font-weight:700;line-height:1.3}
+.tl .what{font-size:19px;font-weight:700;line-height:1.4}
+.tl .more{font-size:17px;color:var(--sub);margin-top:4px}
+.tl .more a{color:var(--sea);font-weight:700}
+.tl li.now{background:var(--now);border-color:var(--sea)}
+.tl li.now::after{content:"지금";position:absolute;top:-12px;right:14px;background:var(--sea);color:var(--on);font-size:15px;font-weight:700;padding:2px 12px;border-radius:999px}
+.who-chip{display:inline-block;font-size:14px;font-weight:700;padding:1px 10px;border-radius:999px;margin-right:6px;vertical-align:2px;background:var(--fam-soft);color:var(--fam)}
+.who-chip.isum{background:var(--sea-soft);color:var(--sea)}
+
+/* steps (numbered because it's a real sequence) */
+.steps{list-style:none;margin:0;padding:0;counter-reset:s}
+.steps li{counter-increment:s;display:grid;grid-template-columns:40px 1fr;gap:12px;padding:12px 0;border-top:2px solid var(--line)}
+.steps li:first-child{border-top:0;padding-top:0}
+.steps li::before{content:counter(s);width:40px;height:40px;border-radius:50%;background:var(--sea);color:var(--on);font-weight:700;font-size:20px;display:flex;align-items:center;justify-content:center}
+.steps b{display:block;font-size:19px}
+.steps span{font-size:17px;color:var(--sub)}
+
+/* ferry table */
+.ferry{width:100%;border-collapse:collapse;font-size:20px;margin:6px 0 12px}
+.ferry th{font-size:16px;color:var(--sub);font-weight:500;text-align:left;padding:6px 4px;border-bottom:2px solid var(--line)}
+.ferry td{padding:10px 4px;border-bottom:1px solid var(--line);font-weight:700}
+.ferry tr.pick td{color:var(--fam)}
+.ferry td.note{font-size:16px;font-weight:500;color:var(--sub)}
+.wrapx{overflow-x:auto}
+
+/* money & weather */
+.rate{font-size:34px;font-weight:700;line-height:1.2;margin:4px 0}
+.small{font-size:16px;color:var(--sub)}
+.calc{display:flex;align-items:center;gap:10px;margin:12px 0}
+.calc input{font:inherit;font-size:28px;font-weight:700;width:100%;min-height:62px;padding:0 14px;border:2px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink)}
+.calc span{font-size:22px;font-weight:700;flex:none}
+.result{font-size:30px;font-weight:700;color:var(--fam);margin:0 0 12px}
+.quick{width:100%;border-collapse:collapse;font-size:19px}
+.quick td{padding:9px 4px;border-top:1px solid var(--line)}
+.quick td:last-child{text-align:right;font-weight:700}
+.wx{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.wx div{background:var(--bg);border-radius:12px;padding:12px 6px;text-align:center}
+.wx .d{font-size:17px;font-weight:700}
+.wx .i{font-size:34px;line-height:1.3}
+.wx .s{font-size:16px;color:var(--sub)}
+.wx .t{font-size:20px;font-weight:700}
+.wx .r{font-size:15px;color:var(--sub)}
+.tip{font-size:18px;margin:12px 0 0;padding:12px 14px;border-radius:12px;background:var(--sea-soft)}
+
+/* spots */
+.spot{display:block}
+.spot .pad{display:grid;gap:4px}
+.spot .meta{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 10px}
+.spot .meta span{font-size:15px;font-weight:700;padding:3px 10px;border-radius:999px;background:var(--bg);color:var(--sub)}
+.spot p{font-size:18px;margin:0 0 10px}
+
+.tel-list a{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:14px 0;border-top:1px solid var(--line);text-decoration:none;font-size:19px}
+.tel-list a:first-child{border-top:0}
+.tel-list b{color:var(--sea);white-space:nowrap}
+
+/* tab bar */
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:6;background:var(--paper);border-top:2px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
+nav.tabs ul{list-style:none;margin:0 auto;padding:0;display:grid;grid-template-columns:repeat(5,1fr);max-width:560px}
+nav.tabs a{display:flex;flex-direction:column;align-items:center;justify-content:center;height:var(--tab-h);text-decoration:none;color:var(--sub);font-size:16px;font-weight:700;gap:2px}
+nav.tabs a .ic{font-size:24px;line-height:1}
+nav.tabs a[aria-current="page"]{color:var(--sea);box-shadow:inset 0 4px 0 var(--sea)}
+
+/* taxi sheet */
+.sheet{position:fixed;inset:0;z-index:20;background:var(--paper);color:var(--ink);display:none;flex-direction:column;overflow-y:auto;
+  padding:calc(env(safe-area-inset-top,0px) + 20px) 22px calc(env(safe-area-inset-bottom,0px) + 22px)}
+.sheet.on{display:flex}
+.sheet .say{font-size:22px;color:var(--sub);margin:0 0 18px}
+.sheet .big{font-size:34px;font-weight:700;line-height:1.4;margin:0 0 14px;white-space:pre-line}
+.sheet .addr{font-size:26px;line-height:1.5;margin:0 0 14px;white-space:pre-line}
+.sheet .tel{font-size:24px;font-weight:700}
+.sheet .btn{margin-top:auto}
+footer{font-size:15px;color:var(--sub);text-align:center;margin:28px 0 0}
+@media (prefers-reduced-motion:no-preference){section[data-view].on{animation:in .18s ease-out}}
+@keyframes in{from{opacity:.4}to{opacity:1}}
+
+/* sub tabs inside timeline */
+.tl .more .go{display:inline-block;margin-top:6px;font-size:16px;font-weight:700;color:var(--sea);text-decoration:none;border:2px solid var(--sea);border-radius:999px;padding:3px 12px}
+.tl li.opt{border-style:dashed}
+.dayhead{background:var(--sea-soft);border-radius:16px;padding:14px 16px;margin:14px 0 10px}
+.dayhead b{display:block;font-size:20px}
+.dayhead span{font-size:17px;color:var(--sub)}
+.sub-h{font-size:21px;margin:26px 4px 6px}
+
+/* place cards (food / shop / spots) */
+.place{background:var(--paper);border:2px solid var(--line);border-radius:18px;margin:12px 0;padding:16px 18px}
+.place .top-row{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.place h3{margin:0;font-size:21px}
+.place .jp{display:block;margin-top:2px}
+.place .kind{flex:none;font-size:15px;font-weight:700;padding:4px 10px;border-radius:999px;background:var(--fam-soft);color:var(--fam);white-space:nowrap}
+.place .meta{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.place .meta span{font-size:15px;font-weight:700;padding:3px 10px;border-radius:999px;background:var(--bg);color:var(--sub)}
+.place .meta .star{background:var(--warn-bg);color:var(--warn-ink)}
+.place .meta .floor{background:var(--sea);color:var(--on)}
+.place p{font-size:18px;margin:0 0 12px}
+.place .warn{font-size:17px;color:var(--warn-ink);margin:-4px 0 12px}
+.area{font-size:18px;font-weight:700;color:var(--sub);margin:22px 4px 0}
+.floorplan{width:100%;border-collapse:collapse;font-size:18px}
+.floorplan td{padding:10px 4px;border-top:1px solid var(--line);vertical-align:top}
+.floorplan td:first-child{font-weight:700;white-space:nowrap;padding-right:12px}
+.floorplan b{color:var(--sea)}
+
+</style>
+</head>
+<body>
+
+<header class="top">
+  <h1>후쿠오카 가족여행</h1>
+  <p>11월 19일(목) – 21일(토) · 2박 3일</p>
+</header>
+
+<main>
+
+
+<!-- ======================= 항공·숙소 ======================= -->
+<section data-view="stay" class="on" aria-label="항공과 숙소">
+  <h2>비행기</h2>
+  <p class="lead">어느 비행기를 볼까요?</p>
+  <div class="seg two" role="group" aria-label="노선 선택">
+    <button type="button" data-who="fam" aria-pressed="true">부산 왕복</button>
+    <button type="button" data-who="isum" aria-pressed="false">인천 왕복</button>
+  </div>
+
+  <div data-group="fam">
+    <article class="ticket">
+      <div class="head"><span class="day">가는 날 · 11/19 (목)</span><span class="fno">트리니티항공 TW231</span></div>
+      <div class="route">
+        <div><div class="t">09:00</div><div class="city">부산 김해</div></div>
+        <div class="arrow" aria-hidden="true">✈</div>
+        <div class="r"><div class="t">10:00</div><div class="city">후쿠오카</div></div>
+      </div>
+      <hr class="perf">
+      <div class="foot">김해공항 <strong>07:00까지</strong> 도착하기</div>
+    </article>
+    <article class="ticket">
+      <div class="head"><span class="day">오는 날 · 11/21 (토)</span><span class="fno">트리니티항공 TW236</span></div>
+      <div class="route">
+        <div><div class="t">20:00</div><div class="city">후쿠오카</div></div>
+        <div class="arrow" aria-hidden="true">✈</div>
+        <div class="r"><div class="t">21:00</div><div class="city">부산 김해</div></div>
+      </div>
+      <hr class="perf">
+      <div class="foot">후쿠오카공항 국제선 <strong>18:00까지</strong> 도착하기<br>면세 물건은 짐 부치기 전에 세관 확인</div>
+    </article>
+  </div>
+
+  <div data-group="isum" hidden>
+    <article class="ticket isum">
+      <div class="head"><span class="day">가는 날 · 11/19 (목)</span><span class="fno">이스타항공 ZE0645</span></div>
+      <div class="route">
+        <div><div class="t">08:40</div><div class="city">인천</div></div>
+        <div class="arrow" aria-hidden="true">✈</div>
+        <div class="r"><div class="t">10:20</div><div class="city">후쿠오카</div></div>
+      </div>
+      <hr class="perf">
+      <div class="foot">인천공항 <strong>06:40까지</strong> 도착하기</div>
+    </article>
+    <article class="ticket isum">
+      <div class="head"><span class="day">오는 날 · 11/21 (토)</span><span class="fno">이스타항공 ZE0650</span></div>
+      <div class="route">
+        <div><div class="t">20:35</div><div class="city">후쿠오카</div></div>
+        <div class="arrow" aria-hidden="true">✈</div>
+        <div class="r"><div class="t">22:00</div><div class="city">인천</div></div>
+      </div>
+      <hr class="perf">
+      <div class="foot">후쿠오카공항 국제선 <strong>18:30까지</strong> 도착하기<br>면세 물건은 짐 부치기 전에 세관 확인</div>
+    </article>
+  </div>
+
+  <h2>숙소</h2>
+
+  <article class="card">
+    <div class="band">
+      <div class="night"><b>19</b><span>첫째 밤</span></div>
+      <div>
+        <div class="name">큐카무라 시카노시마</div>
+        <div class="jp">休暇村 志賀島</div>
+      </div>
+    </div>
+    <div class="pad">
+      <div class="notice"><b>14:40 송영버스</b><br>시카노시마항(志賀島 渡船場) 앞에서 타요. 14:20까지 항구에 도착해 있기!</div>
+      <dl class="facts">
+        <div class="fact"><dt>체크인</dt><dd>19일 15:00</dd></div>
+        <div class="fact"><dt>체크아웃</dt><dd>20일 10:00</dd></div>
+        <div class="fact wide resv"><div><dt>예약번호</dt><dd>6LAVKPYC</dd></div><button class="copy" type="button" data-copy="6LAVKPYC">복사</button></div>
+      </dl>
+      <div class="tags"><span>조식 포함</span><span>석식 포함</span><span>온천</span></div>
+      <p class="small">온천 이용: 05:00–09:00, 11:00–24:00 · 객실 전부 바다 전망</p>
+      <iframe class="map" loading="lazy" title="큐카무라 시카노시마 지도" src="https://maps.google.com/maps?q=%E4%BC%91%E6%9A%87%E6%9D%91%E5%BF%97%E8%B3%80%E5%B3%B6&z=13&output=embed"></iframe>
+      <div class="btns">
+        <a class="btn" href="https://www.google.com/maps/search/?api=1&query=%E4%BC%91%E6%9A%87%E6%9D%91%E5%BF%97%E8%B3%80%E5%B3%B6" target="_blank" rel="noopener">지도 앱 열기</a>
+        <a class="btn" href="tel:+81926036631">전화 걸기</a>
+        <button class="btn solid full" type="button" data-taxi="kyuka">택시 기사님께 보여주기</button>
+      </div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="band">
+      <div class="night"><b>20</b><span>둘째 밤</span></div>
+      <div>
+        <div class="name">니시테츠 호텔 크룸 하카타 기온</div>
+        <div class="jp">西鉄ホテル クルーム 博多祇園 櫛田神社前</div>
+      </div>
+    </div>
+    <div class="pad">
+      <dl class="facts">
+        <div class="fact"><dt>체크인</dt><dd>20일 15:00</dd></div>
+        <div class="fact"><dt>체크아웃</dt><dd>21일 11:00</dd></div>
+        <div class="fact wide resv"><div><dt>예약번호</dt><dd>1794983734</dd></div><button class="copy" type="button" data-copy="1794983734">복사</button></div>
+      </dl>
+      <div class="tags"><span>조식 포함 (06:30–10:00)</span><span>대욕장</span></div>
+      <div class="notice">지하철 <b>구시다진자마에역</b> 바로 앞 (도보 1분)</div>
+      <iframe class="map" loading="lazy" title="크룸 하카타 기온 지도" src="https://maps.google.com/maps?q=%E8%A5%BF%E9%89%84%E3%83%9B%E3%83%86%E3%83%AB%E3%82%AF%E3%83%AB%E3%83%BC%E3%83%A0%E5%8D%9A%E5%A4%9A%E7%A5%87%E5%9C%92&z=15&output=embed"></iframe>
+      <div class="btns">
+        <a class="btn" href="https://www.google.com/maps/search/?api=1&query=%E8%A5%BF%E9%89%84%E3%83%9B%E3%83%86%E3%83%AB%E3%82%AF%E3%83%AB%E3%83%BC%E3%83%A0%E5%8D%9A%E5%A4%9A%E7%A5%87%E5%9C%92" target="_blank" rel="noopener">지도 앱 열기</a>
+        <a class="btn" href="tel:+81922355050">전화 걸기</a>
+        <button class="btn solid full" type="button" data-taxi="croom">택시 기사님께 보여주기</button>
+      </div>
+    </div>
+  </article>
+
+  <h2>한눈에 보는 지도</h2>
+  <p class="lead">공항 · 하카타 부두 · 시카노시마 · 호텔</p>
+  <div class="card"><div class="pad">
+    <iframe class="map tall" loading="lazy" title="여행 동선 지도" src="https://maps.google.com/maps?q=%E5%BF%97%E8%B3%80%E5%B3%B6%20%E7%A6%8F%E5%B2%A1&z=11&output=embed"></iframe>
+    <div class="btns">
+      <a class="btn full" href="https://www.google.com/maps/dir/?api=1&origin=%E7%A6%8F%E5%B2%A1%E7%A9%BA%E6%B8%AF%E5%9B%BD%E9%9A%9B%E7%B7%9A%E3%82%BF%E3%83%BC%E3%83%9F%E3%83%8A%E3%83%AB&destination=%E4%BC%91%E6%9A%87%E6%9D%91%E5%BF%97%E8%B3%80%E5%B3%B6&waypoints=%E3%83%99%E3%82%A4%E3%82%B5%E3%82%A4%E3%83%89%E3%83%97%E3%83%AC%E3%82%A4%E3%82%B9%E5%8D%9A%E5%A4%9A" target="_blank" rel="noopener">첫날 동선 지도로 보기</a>
+    </div>
+  </div></div>
+</section>
+
+
+<!-- ======================= 일정 ======================= -->
+<section data-view="plan" aria-label="날짜별 일정">
+  <h2>날짜별 일정</h2>
+  <div class="seg three" role="group" aria-label="날짜 선택">
+    <button type="button" data-day="19" aria-pressed="true">19일<small>목요일</small></button>
+    <button type="button" data-day="20" aria-pressed="false">20일<small>금요일</small></button>
+    <button type="button" data-day="21" aria-pressed="false">21일<small>토요일</small></button>
+  </div>
+
+  <!-- ===== 19일 ===== -->
+  <div data-dayitems="19">
+    <div class="dayhead"><b>도착하고 섬으로</b><span>공항 → 이른 점심 → 배 → 큐카무라 온천·저녁</span></div>
+    <ol class="tl">
+      <li data-at="2026-11-19T10:00"><div class="at">10:00</div><div><div class="what"><span class="who-chip">부산</span>후쿠오카 도착</div><div class="more">국제선 터미널. 입국심사 후 1층 도착 로비에서 기다리기</div></div></li>
+      <li data-at="2026-11-19T10:20"><div class="at">10:20</div><div><div class="what"><span class="who-chip isum">인천</span>후쿠오카 도착</div><div class="more">입국 후 1층 도착 로비에서 합류</div></div></li>
+      <li data-at="2026-11-19T11:00"><div class="at">11:00</div><div><div class="what">택시로 하카타 부두</div><div class="more">베이사이드플레이스 하카타까지 약 20분<br><button class="go" type="button" data-taxi="bayside">택시 기사님께 보여주기</button></div></div></li>
+      <li data-at="2026-11-19T11:20"><div class="at">11:20</div><div><div class="what">이른 점심 (베이사이드플레이스)</div><div class="more">스시·굴구이·뷔페 중 고르기. 배 타는 곳과 같은 건물이라 짐 들고 이동 없음<br><a class="go" href="#food" data-goday="19">식당 보기</a></div></div></li>
+      <li data-at="2026-11-19T12:50"><div class="at">12:50</div><div><div class="what">도선 대합실에서 표 사기</div><div class="more">제1터미널 · 대인 680엔 · 현금 준비</div></div></li>
+      <li data-at="2026-11-19T13:10"><div class="at">13:10</div><div><div class="what">⛴ 시카노시마행 배</div><div class="more">13:40 시카노시마항 도착. 놓치면 13:55 (14:25 도착)<br><a class="go" href="#info">배 시간표</a></div></div></li>
+      <li data-at="2026-11-19T13:40"><div class="at">13:40</div><div><div class="what">항구에서 잠깐 쉬기</div><div class="more">대합실 앞 금인(金印) 조형물에서 사진 한 장. 14:30엔 버스 타는 곳으로</div></div></li>
+      <li data-at="2026-11-19T14:40"><div class="at">14:40</div><div><div class="what">큐카무라 송영버스</div><div class="more">시카노시마항 앞에서 탑승 · 약 15분</div></div></li>
+      <li data-at="2026-11-19T15:00"><div class="at">15:00</div><div><div class="what">체크인 · 짐 풀기</div><div class="more">프런트에 <b>내일 아침 송영 시간</b>과 저녁 식사 시간 물어보기</div></div></li>
+      <li data-at="2026-11-19T15:30"><div class="at">15:30</div><div><div class="what">숙소 근처 산책</div><div class="more">시모마가하마 해변 → 나카쓰미야 숲길 → 오키쓰미야 (아래 ‘근처 볼거리’)</div></div></li>
+      <li data-at="2026-11-19T16:45"><div class="at">16:45</div><div><div class="what">♨ 온천 · 해넘이</div><div class="more">해 지는 시각 17:15 무렵. 노천탕에서 바다 쪽으로 해가 져요</div></div></li>
+      <li data-at="2026-11-19T18:00"><div class="at">18:00</div><div><div class="what">저녁 (숙소 뷔페) · 휴식</div><div class="more">온천은 밤 12시까지, 아침 5–9시에도 열어요</div></div></li>
+    </ol>
+
+    <h3 class="sub-h">근처 볼거리 (숙소에서 걸어서)</h3>
+    <article class="place">
+      <div class="top-row"><div><h3>시모마가하마 해변</h3><span class="jp">下馬ヶ浜海水浴場</span></div><span class="kind">해변</span></div>
+      <div class="meta"><span>숙소 앞 · 도보 3분</span><span>평지 · 모래</span></div>
+      <p>숙소 바로 앞의 긴 모래사장. 물이 맑아서 해 질 무렵 산책하기 좋아요.</p>
+      <a class="btn full" href="https://www.google.com/maps/search/?api=1&query=%E4%B8%8B%E9%A6%AC%E3%83%B6%E6%B5%9C%E6%B5%B7%E6%B0%B4%E6%B5%B4%E5%A0%B4&query_place_id=ChIJkTfezWzzQTURFvv2nPtonKk" target="_blank" rel="noopener">지도 열기</a>
+    </article>
+    <article class="place">
+      <div class="top-row"><div><h3>나카쓰미야 (가쓰마 신사)</h3><span class="jp">志賀海神社 中津宮</span></div><span class="kind">신사</span></div>
+      <div class="meta"><span>도보 7분</span><span>돌계단 조금</span></div>
+      <p>숲속 터널 같은 길을 지나 올라가는 작은 신사. 옛 무덤 위에 세워져 있어 분위기가 독특해요. 바닷가 쪽 뒷길로 나오면 경치가 좋아요.</p>
+      <a class="btn full" href="https://www.google.com/maps/search/?api=1&query=%E5%BF%97%E8%B3%80%E6%B5%B7%E7%A5%9E%E7%A4%BE%20%E4%B8%AD%E6%B4%A5%E5%AE%AE&query_place_id=ChIJR5SN1cLyQTURccslwZN05Bg" target="_blank" rel="noopener">지도 열기</a>
+    </article>
+    <article class="place">
+      <div class="top-row"><div><h3>오키쓰미야</h3><span class="jp">志賀海神社 沖津宮</span></div><span class="kind">신사</span></div>
+      <div class="meta"><span>도보 11분</span><span>썰물 때만 건너감</span></div>
+      <p>바다 위 작은 섬에 있는 신사. 물이 빠졌을 때만 길이 드러나요. 물이 차 있으면 해변에서 바라보며 참배하면 돼요.</p>
+      <a class="btn full" href="https://www.google.com/maps/search/?api=1&query=%E5%BF%97%E8%B3%80%E6%B5%B7%E7%A5%9E%E7%A4%BE%20%E6%B2%96%E6%B4%A5%E5%AE%AE&query_place_id=ChIJB5OUD93yQTUR6CarGDlXQfI" target="_blank" rel="noopener">지도 열기</a>
+    </article>
+  </div>
+
+  <!-- ===== 20일 ===== -->
+  <div data-dayitems="20" hidden>
+    <div class="dayhead"><b>섬 한 바퀴 드라이브 → 하카타</b><span>조식 → 섬 일주 → 하카타 쇼핑 → 호텔 → 저녁·시내 → 대욕장</span></div>
+    <ol class="tl">
+      <li data-at="2026-11-20T06:30"><div class="at">아침</div><div><div class="what">아침 온천 · 조식</div><div class="more">온천 05:00–09:00</div></div></li>
+      <li data-at="2026-11-20T09:45"><div class="at">09:45</div><div><div class="what">체크아웃 (10:00까지) · 차 출발</div><div class="more">섬 둘레 도로(긴인 해안도로) 한 바퀴 약 10km</div></div></li>
+      <li data-at="2026-11-20T10:00"><div class="at">10:00</div><div><div class="what">시오미 공원 전망대</div><div class="more">섬 가운데 언덕 위. 하카타만이 사방으로 보여요. 길이 좁으니 천천히 · 30분</div></div></li>
+      <li data-at="2026-11-20T10:45"><div class="at">10:45</div><div><div class="what">시카우미 신사</div><div class="more">바다 신의 총본산. 봉납된 사슴뿔 1만 개 · 계단 있음 · 40분</div></div></li>
+      <li data-at="2026-11-20T11:30"><div class="at">11:30</div><div><div class="what">점심 (항구 근처)</div><div class="more">명물 사자에동(소라덮밥) 또는 숙성 생선 정식<br><a class="go" href="#food" data-goday="20">식당 보기</a></div></div></li>
+      <li data-at="2026-11-20T12:40"><div class="at">12:40</div><div><div class="what">금인공원</div><div class="more">‘금인’ 발견지. 바다 건너 하카타 시내가 보여요 · 20분</div></div></li>
+      <li data-at="2026-11-20T13:10"><div class="at">13:10</div><div><div class="what">🚗 우미노나카미치 지나 시내로</div><div class="more">양쪽이 바다인 길을 따라 하카타역까지 약 40–50분</div></div></li>
+      <li data-at="2026-11-20T14:00"><div class="at">14:00</div><div><div class="what">하카타역 쇼핑</div><div class="more">스탠다드프로덕츠·무인양품·유니클로·칼디가 역 주변에 모여 있어요<br><a class="go" href="#shop">쇼핑 위치 보기</a></div></div></li>
+      <li data-at="2026-11-20T16:30"><div class="at">16:30</div><div><div class="what">호텔 체크인 · 쉬기</div><div class="more">호텔 주차 1박 2,000엔 · 20대 선착순 (예약 불가)</div></div></li>
+      <li data-at="2026-11-20T18:00"><div class="at">18:00</div><div><div class="what">저녁 (호텔에서 걸어서)</div><div class="more">모츠나베·미즈타키·야키토리·교자·라멘<br><a class="go" href="#food" data-goday="20">식당 보기</a></div></div></li>
+      <li data-at="2026-11-20T19:30"><div class="at">19:30</div><div><div class="what">시내 구경</div><div class="more">캐널시티 분수쇼 → 나카스 강변 포장마차 → 밤의 구시다 신사 (아래 ‘근처 볼거리’)</div></div></li>
+      <li data-at="2026-11-20T21:30"><div class="at">21:30</div><div><div class="what">♨ 호텔 대욕장 · 취침</div><div class="more">내일 체크아웃 11:00</div></div></li>
+    </ol>
+
+    <div class="notice" style="margin-top:6px"><b>🚗 차 관련</b><br>섬 안 관광지마다 무료 주차장이 있어요. 시내는 유료 주차라, 렌터카라면 반납 장소·시간을 미리 확인해 두세요.</div>
+
+    <h3 class="sub-h">섬에서 더 볼 만한 곳</h3>
+    <article class="place">
+      <div class="top-row"><div><h3>시오미 공원 전망대</h3><span class="jp">潮見公園展望台</span></div><span class="kind">전망</span></div>
+      <div class="meta"><span class="star">구글 4.2</span><span>차로 정상 부근까지</span><span>길 좁음</span></div>
+      <p>섬에서 가장 높은 전망대. 우미노나카미치와 후쿠오카 시내까지 한눈에 보여요.</p>
+      <a class="btn full" href="https://www.google.com/maps/search/?api=1&query=%E6%BD%AE%E8%A6%8B%E5%85%AC%E5%9C%92%E5%B1%95%E6%9C%9B%E5%8F%B0&query_place_id=ChIJ1aRQE8vyQTURZ1Wb9ZHmaVQ" target="_blank" rel="noopener">지도 열기</a>
+    </article>
+    <article class="place">
+      <div class="top-row"><div><h3>시카우미 신사</h3><span class="jp">志賀海神社</span></div><span class="kind">신사</span></div>
+      <div class="meta"><span class="star">구글 4.5</span><span>05:30–17:30</span><span>계단 있음</span><span>주차장 넓음</span></div>
+      <p>들어가기 전 나무 상자에 든 모래로 몸을 정화하는 독특한 풍습이 있어요. 경내에서 바다가 내려다보여요.</p>
+      <a class="btn full" href="https://www.google.com/maps/search/?api=1&query=%E5%BF%97%E8%B3%80%E6%B5%B7%E7%A5%9E%E7%A4%BE&query_place_id=ChIJeS85EUqNQTURha7Azi6VFAk" target="_blank" rel="noopener">지도 열기</a>
+    </article>
+    <article class="place">
+      <div class="top-row"><div><h3>금인공원</h3><span class="jp">金印公園</span></div><span class="kind">공원</span></div>
+      <div class="meta"><span>섬 남서쪽 해안도로</span><span>계단 조금</span></div>
+      <p>교과서에 나오는 금도장이 발견된 자리. 크진 않지만 해안 드라이브 중 잠깐 들르기 좋아요.</p>
+      <a class="btn full" href="https://www.google.com/maps/search/?api=1&query=%E9%87%91%E5%8D%B0%E5%85%AC%E5%9C%92&query_place_id=ChIJUfHyI6_yQTURpqkPdHzPZBg" target="_blank" rel="noopener">지도 열기</a>
+    </article>
+
+    <h3 class="sub-h">저녁 시내 구경 (호텔에서 걸어서)</h3>
+    <article class="place">
+      <div class="top-row"><div><h3>캐널시티 하카타 분수쇼</h3><span class="jp">キャナルシティ博多</span></div><span class="kind">야경</span></div>
+      <div class="meta"><span>도보 3분</span><span>30분마다</span><span>무료</span></div>
+      <p>건물 사이 운하에서 음악 분수쇼가 열려요. 저녁엔 건물 벽 영상쇼까지 함께.</p>
+      <a class="btn full" href="https://www.google.com/maps/search/?api=1&query=%E3%82%AD%E3%83%A3%E3%83%8A%E3%83%AB%E3%82%B7%E3%83%86%E3%82%A3%E5%8D%9A%E5%A4%9A&query_place_id=ChIJYcOBiZWRQTUR0Rl0ehe67eA" target="_blank" rel="noopener">지도 열기</a>
+    </article>
+    <article class="place">
+      <div class="top-row"><div><h3>나카스 강변 포장마차</h3><span class="jp">中洲屋台 · 春吉橋</span></div><span class="kind">야경</span></div>
+      <div class="meta"><span>도보 7분</span><span>해 질 무렵부터</span><span>의자 낮음</span></div>
+      <p>나카강을 따라 포장마차 불빛이 늘어서요. 저녁 먹은 뒤 강변 산책만 해도 충분히 좋아요.</p>
+      <a class="btn full" href="https://www.google.com/maps/search/?api=1&query=%E6%98%A5%E5%90%89%E6%A9%8B&query_place_id=ChIJzaX-PI-RQTUROBygtr0Pelw" target="_blank" rel="noopener">지도 열기</a>
+    </article>
+    <article class="place">
+      <div class="top-row"><div><h3>구시다 신사 · 가와바타 상점가</h3><span class="jp">櫛田神社 · 川端商店街</span></div><span class="kind">산책</span></div>
+      <div class="meta"><span>도보 2–5분</span><span>평지</span><span>지붕 있음</span></div>
+      <p>호텔 바로 옆 하카타의 수호신사와 오래된 지붕 상점가. 비 와도 OK.</p>
+      <a class="btn full" href="https://www.google.com/maps/search/?api=1&query=%E6%AB%9B%E7%94%B0%E7%A5%9E%E7%A4%BE" target="_blank" rel="noopener">지도 열기</a>
+    </article>
+  </div>
+
+  <!-- ===== 21일 ===== -->
+  <div data-dayitems="21" hidden>
+    <div class="dayhead"><b>오호리 공원 산책 → 귀국</b><span>조식 → 체크아웃 → 오호리 공원 → 점심 → 공항</span></div>
+    <ol class="tl">
+      <li data-at="2026-11-21T07:00"><div class="at">아침</div><div><div class="what">조식</div><div class="more">06:30–10:00</div></div></li>
+      <li data-at="2026-11-21T10:30"><div class="at">10:30</div><div><div class="what">체크아웃 · 짐 맡기기</div><div class="more">호텔 프런트에 저녁까지 보관 (체크아웃 11:00까지)</div></div></li>
+      <li data-at="2026-11-21T10:45"><div class="at">10:45</div><div><div class="what">지하철 기온역 → 오호리코엔역</div><div class="more">공항선 한 번에 (갈아타기 없음) · 약 10분 · 3번 출구 쪽이 호수</div></div></li>
+      <li data-at="2026-11-21T11:00"><div class="at">11:00</div><div><div class="what">오호리 공원 산책</div><div class="more">호수 한 바퀴 약 2km · 평지. 단풍 시기와 겹쳐요</div></div></li>
+      <li data-at="2026-11-21T12:00"><div class="at">12:00</div><div><div class="what">일본정원 또는 성터 전망</div><div class="more">둘 중 하나 골라서 (아래 ‘근처 볼거리’)</div></div></li>
+      <li data-at="2026-11-21T12:45"><div class="at">12:45</div><div><div class="what">점심 (공원 근처)</div><div class="more">일본 가정식·생선 정식·주먹밥<br><a class="go" href="#food" data-goday="21">식당 보기</a></div></div></li>
+      <li class="opt" data-at="2026-11-21T14:15"><div class="at">14:15</div><div><div class="what">(선택) 텐진 들러 몽벨</div><div class="more">돌아가는 지하철 텐진역에서 내려 도보 7분<br><a class="go" href="#shop">쇼핑 위치 보기</a></div></div></li>
+      <li data-at="2026-11-21T16:30"><div class="at">16:30</div><div><div class="what">호텔 복귀 · 짐 찾기</div><div class="more">지하철 기온역 또는 구시다진자마에역</div></div></li>
+      <li data-at="2026-11-21T17:15"><div class="at">17:15</div><div><div class="what">택시로 공항 국제선</div><div class="more">약 20–25분<br><button class="go" type="button" data-taxi="airport">택시 기사님께 보여주기</button></div></div></li>
+      <li data-at="2026-11-21T18:00"><div class="at">18:00</div><div><div class="what">공항 도착 · 면세 확인 먼저</div><div class="more">짐 부치기 전에 세관 확인 → 수하물 → 출국심사</div></div></li>
+      <li data-at="2026-11-21T20:00"><div class="at">20:00</div><div><div class="what"><span class="who-chip">부산</span>TW236 출발</div><div class="more">21:00 김해 도착</div></div></li>
+      <li data-at="2026-11-21T20:35"><div class="at">20:35</div><div><div class="what"><span class="who-chip isum">인천</span>ZE0650 출발</div><div class="more">22:00 인천 도착</div></div></li>
+    </ol>
+
+    <h3 class="sub-h">오호리 공원 근처 볼거리</h3>
+    <article class="place">
+      <div class="top-row"><div><h3>오호리 공원 일본정원</h3><span class="jp">大濠公園日本庭園</span></div><span class="kind">정원</span></div>
+      <div class="meta"><span class="star">구글 4.5</span><span>09:00–17:00</span><span>입장 250엔</span><span>평지</span></div>
+      <p>연못·다리·돌길이 있는 작고 정갈한 정원. 공원 남쪽 끝에 있어요.</p>
+      <a class="btn full" href="https://www.google.com/maps/search/?api=1&query=%E5%A4%A7%E6%BF%A0%E5%85%AC%E5%9C%92%E6%97%A5%E6%9C%AC%E5%BA%AD%E5%9C%92&query_place_id=ChIJAQBwwc2TQTURjx-IPrl8IzM" target="_blank" rel="noopener">지도 열기</a>
+    </article>
+    <article class="place">
+      <div class="top-row"><div><h3>후쿠오카성 천수대 터</h3><span class="jp">福岡城 天守台跡</span></div><span class="kind">전망</span></div>
+      <div class="meta"><span class="star">구글 4.4</span><span>무료</span><span>계단 많음</span></div>
+      <p>옛 성의 돌담 위에서 시내가 내려다보여요. 무릎이 불편하시면 아래 마이즈루 공원 산책만.</p>
+      <a class="btn full" href="https://www.google.com/maps/search/?api=1&query=%E7%A6%8F%E5%B2%A1%E5%9F%8E%20%E5%A4%A9%E5%AE%88%E5%8F%B0%E8%B7%A1&query_place_id=ChIJC2JdU3KTQTURRZ9DutHhBvg" target="_blank" rel="noopener">지도 열기</a>
+    </article>
+    <article class="place">
+      <div class="top-row"><div><h3>스타벅스 오호리공원점</h3><span class="jp">スターバックス 福岡大濠公園店</span></div><span class="kind">카페</span></div>
+      <div class="meta"><span class="star">구글 4.4 · 리뷰 2,600+</span><span>07:00–21:00</span><span>역에서 도보 3분</span></div>
+      <p>호숫가에 있는 유리벽 매장. 산책 중 쉬어가기 좋아요. 주말엔 자리가 빨리 차요.</p>
+      <a class="btn full" href="https://www.google.com/maps/search/?api=1&query=%E3%82%B9%E3%82%BF%E3%83%BC%E3%83%90%E3%83%83%E3%82%AF%E3%82%B9%20%E5%A4%A7%E6%BF%A0%E5%85%AC%E5%9C%92&query_place_id=ChIJh5cLLs2TQTURGa004wXjn_g" target="_blank" rel="noopener">지도 열기</a>
+    </article>
+  </div>
+</section>
+
+<!-- ======================= 맛집 ======================= -->
+<section data-view="food" aria-label="맛집">
+  <h2>동선 안의 맛집</h2>
+  <p class="lead">구글 평점 4.0 이상 · 리뷰 100개 이상 · 걸어서 갈 수 있는 곳 (11/17 기준)</p>
+  <div class="seg three" role="group" aria-label="날짜 선택">
+    <button type="button" data-fday="19" aria-pressed="true">19일<small>점심</small></button>
+    <button type="button" data-fday="20" aria-pressed="false">20일<small>점심·저녁</small></button>
+    <button type="button" data-fday="21" aria-pressed="false">21일<small>점심</small></button>
+  </div>
+  <div id="food-list"></div>
+</section>
+
+<!-- ======================= 쇼핑 ======================= -->
+<section data-view="shop" aria-label="쇼핑">
+  <h2>쇼핑 위치</h2>
+  <p class="lead">20일 하카타역 주변에 거의 다 모여 있어요</p>
+  <div class="card"><div class="pad">
+    <h3>하카타역 한눈에</h3>
+    <table class="floorplan">
+      <tr><td>버스터미널 5층</td><td><b>스탠다드프로덕츠</b> (다이소와 같은 층)</td></tr>
+      <tr><td>아뮤플라자 6층</td><td><b>무인양품</b></td></tr>
+      <tr><td>역 1층 마잉</td><td><b>칼디</b> (기념품 거리 안)</td></tr>
+      <tr><td>KITTE 8층</td><td><b>유니클로</b></td></tr>
+      <tr><td>KITTE 2층</td><td><b>칼디</b> (하카타 마루이 안)</td></tr>
+    </table>
+    <p class="small" style="margin-top:10px">모두 역과 연결돼 있어 비 와도 실내로 다닐 수 있어요. 몽벨만 텐진에 있어요.</p>
+  </div></div>
+  <div id="shop-list"></div>
+  <div class="notice"><b>면세 팁</b><br>같은 가게에서 하루 5,000엔(세금 빼고) 이상이면 여권 보여주기. 영수증 단위로 공항에서 확인하니, 현지에서 먹을 건 따로 계산하세요.</div>
+</section>
+
+
+<!-- ======================= 정보 ======================= -->
+<section data-view="info" aria-label="여행 정보">
+  <h2>날씨</h2>
+  <div class="card"><div class="pad">
+    <div class="wx" id="wx"><div><div class="s">불러오는 중</div></div></div>
+    <p class="tip" id="wx-tip">바닷바람 부는 섬 일정이 있어요. 얇은 겉옷 하나 더 챙기기.</p>
+    <p class="small" style="margin-top:10px">후쿠오카 기준 · 열 때마다 새로 받아와요</p>
+  </div></div>
+
+  <h2>환율 · 계산기</h2>
+  <div class="card"><div class="pad">
+    <div class="small">오늘 환율</div>
+    <div class="rate" id="rate">불러오는 중</div>
+    <div class="calc">
+      <input id="yen" type="number" inputmode="numeric" placeholder="엔 입력" aria-label="엔 금액">
+      <span>엔</span>
+    </div>
+    <div class="result" id="won">= 0원</div>
+    <table class="quick" id="quick"></table>
+    <p class="small" id="rate-time" style="margin-top:10px"></p>
+  </div></div>
+
+  <h2>면세 쇼핑 (11월부터 바뀜)</h2>
+  <div class="card"><div class="pad">
+    <p>이제 가게에선 <b>세금 포함 값</b>을 다 내고, <b>출국할 때 공항에서</b> 세금을 돌려받아요.</p>
+    <ol class="steps">
+      <li><div><b>계산할 때 여권 보여주기</b><span>같은 가게, 같은 날 세금 빼고 5,000엔 이상일 때. 환급 방법(카드·현금 등)은 가게마다 달라서 물어보기</span></div></li>
+      <li><div><b>공항에서 짐 부치기 전에 세관 확인</b><span>먼저 짐을 부치면 환급을 못 받아요</span></div></li>
+      <li><div><b>가게에서 정한 방법으로 환급</b><span>확인이 끝나야 돈이 돌아와요</span></div></li>
+    </ol>
+    <div class="notice" style="margin:14px 0 0"><b>이것만 조심</b><br>여행 중에 뜯어 먹거나 쓰면 환급 안 돼요. 한 영수증에 든 물건이 하나라도 없으면 그 영수증 전체가 안 돼요. 현지에서 먹을 건 따로 계산하기.</div>
+    <p class="small" style="margin-top:12px">한국 들어올 때 1인 면세한도는 800달러. 세금 포함된 영수증 금액으로 따지면 넘을 수 있어요.</p>
+    <p class="small">출국세 3,000엔은 비행기표 값에 이미 들어 있어요. 따로 낼 것 없어요.</p>
+  </div></div>
+
+  <h2>이동 · 배 시간표</h2>
+  <div class="card"><div class="pad">
+    <h3>19일 공항 → 시카노시마항</h3>
+    <ol class="steps">
+      <li><div><b>국제선 1층에서 택시</b><span>하카타 부두(베이사이드플레이스)까지 약 20분</span></div></li>
+      <li><div><b>제1터미널 도선 대합실</b><span>표 사서 시영 도선 ‘시카노시마행’. 예약 필요 없음 · 대인 680엔</span></div></li>
+      <li><div><b>약 30분 뒤 시카노시마항</b><span>사이토자키를 거쳐 가요. 마지막 항구에서 내리기</span></div></li>
+      <li><div><b>14:40 큐카무라 송영버스</b><span>항구 앞에서 탑승</span></div></li>
+    </ol>
+  </div></div>
+  <div class="card"><div class="pad">
+    <h3>19일 하카타 → 시카노시마 (평일)</h3>
+    <div class="wrapx"><table class="ferry">
+      <thead><tr><th>출발</th><th>도착</th><th></th></tr></thead>
+      <tbody>
+        <tr><td>12:30</td><td>13:00</td><td class="note">여유</td></tr>
+        <tr class="pick"><td>13:10</td><td>13:40</td><td class="note">추천</td></tr>
+        <tr><td>13:55</td><td>14:25</td><td class="note">마지막 기회</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small">날씨에 따라 결항될 수 있어요. 출발 전날 공식 시간표를 한 번 더 확인하세요.</p>
+    <a class="btn full" href="https://www.city.fukuoka.lg.jp/kowan/kyakusen/hakata-port/hyo.html" target="_blank" rel="noopener">공식 도선 시간표 열기</a>
+  </div></div>
+  <div class="card"><div class="pad">
+    <h3>송영버스를 놓쳤다면</h3>
+    <p>숙소에 먼저 전화하기 → 안 되면 항구 앞 ‘시카노시마’ 정류장에서 니시테츠 버스 섬 순환선(1번)을 타고 ‘큐카무라 시카노시마’ 정류장에서 내리기</p>
+    <a class="btn full" href="tel:+81926036631">큐카무라에 전화</a>
+  </div></div>
+  <div class="card"><div class="pad">
+    <h3>21일 오호리 공원 · 공항 가는 법</h3>
+    <p><b>호텔 → 오호리 공원</b> 지하철 공항선 기온역 → 오호리코엔역, 갈아타기 없이 약 10분</p>
+    <p><b>호텔 → 공항 국제선</b> 택시 약 20–25분이 가장 편해요. 지하철이면 후쿠오카쿠코역(국내선)에서 무료 셔틀버스로 국제선까지.</p>
+    <div class="btns">
+      <button class="btn solid" type="button" data-taxi="airport">택시: 공항 국제선</button>
+      <button class="btn" type="button" data-taxi="croom">택시: 호텔</button>
+    </div>
+  </div></div>
+
+  <h2>입국 준비</h2>
+  <div class="card"><div class="pad">
+    <p><b>Visit Japan Web</b>에 미리 여권·항공편을 등록하면 입국심사·세관용 QR이 나와요. 출발 전에 화면 캡처해 두기.</p>
+    <a class="btn solid full" href="https://www.vjw.digital.go.jp/" target="_blank" rel="noopener">Visit Japan Web 열기</a>
+  </div></div>
+
+  <h2>비상 연락</h2>
+  <div class="card"><div class="pad tel-list">
+    <a href="tel:110"><span>경찰</span><b>110</b></a>
+    <a href="tel:119"><span>구급차 · 화재</span><b>119</b></a>
+    <a href="tel:+81927710461"><span>주후쿠오카 총영사관 (근무시간)</span><b>092-771-0461</b></a>
+    <a href="tel:+818085882806"><span>총영사관 사건사고 (근무시간 외)</span><b>080-8588-2806</b></a>
+    <a href="tel:+818029566736"><span>총영사관 여권 분실 (근무시간 외)</span><b>080-2956-6736</b></a>
+    <a href="tel:+82232100404"><span>영사콜센터 (24시간, 한국)</span><b>+82-2-3210-0404</b></a>
+  </div></div>
+
+  <h2>홈 화면에 추가하기</h2>
+  <div class="card"><div class="pad">
+    <p><b>아이폰</b> Safari 아래 공유 버튼 → ‘홈 화면에 추가’</p>
+    <p><b>갤럭시</b> Chrome 오른쪽 위 ⋮ → ‘홈 화면에 추가’</p>
+    <p class="small">앱처럼 바로 열 수 있어요.</p>
+  </div></div>
+</section>
+
+
+</main>
+
+<nav class="tabs" aria-label="메뉴">
+  <ul>
+    <li><a href="#stay" data-tab="stay"><span class="ic" aria-hidden="true">🛏</span>항공·숙소</a></li>
+    <li><a href="#plan" data-tab="plan"><span class="ic" aria-hidden="true">🗓</span>일정</a></li>
+    <li><a href="#food" data-tab="food"><span class="ic" aria-hidden="true">🍜</span>맛집</a></li>
+    <li><a href="#shop" data-tab="shop"><span class="ic" aria-hidden="true">🛍</span>쇼핑</a></li>
+    <li><a href="#info" data-tab="info"><span class="ic" aria-hidden="true">💴</span>정보</a></li>
+  </ul>
+</nav>
+
+
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="택시용 목적지">
+  <p class="say">運転手さん、ここまでお願いします。</p>
+  <p class="big" id="s-name"></p>
+  <p class="addr" id="s-addr"></p>
+  <p class="tel" id="s-tel"></p>
+  <button class="btn solid" id="s-close" type="button">닫기</button>
+</div>
+
+<script>
+(function(){
+  function store(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
+
+  /* ---------- tabs ---------- */
+  var views=["stay","plan","food","shop","info"], alias={move:"info",see:"plan"};
+  function show(){
+    var v=(location.hash||"#stay").slice(1);
+    if(alias[v]) v=alias[v];
+    if(views.indexOf(v)<0) v="stay";
+    document.querySelectorAll("section[data-view]").forEach(function(s){s.classList.toggle("on",s.dataset.view===v)});
+    document.querySelectorAll("nav.tabs a").forEach(function(a){
+      if(a.dataset.tab===v) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current");
+    });
+    window.scrollTo(0,0);
+    if(v==="info") loadInfo();
+  }
+  window.addEventListener("hashchange",show);
+
+  /* ---------- route toggle ---------- */
+  function setWho(w){
+    document.querySelectorAll("[data-who]").forEach(function(b){b.setAttribute("aria-pressed",b.dataset.who===w)});
+    document.querySelectorAll("[data-group]").forEach(function(g){g.hidden=g.dataset.group!==w});
+    store("who",w);
+  }
+  setWho(store("who")==="isum"?"isum":"fam");
+  document.querySelectorAll("[data-who]").forEach(function(b){b.addEventListener("click",function(){setWho(b.dataset.who)})});
+
+  /* ---------- Japan time ---------- */
+  function jstNow(){
+    var p=new Intl.DateTimeFormat("en-CA",{timeZone:"Asia/Tokyo",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hour12:false}).formatToParts(new Date());
+    var o={};p.forEach(function(x){o[x.type]=x.value});
+    if(o.hour==="24")o.hour="00";
+    return o.year+"-"+o.month+"-"+o.day+"T"+o.hour+":"+o.minute;
+  }
+
+  /* ---------- day timeline ---------- */
+  function setDay(d){
+    document.querySelectorAll("[data-day]").forEach(function(b){b.setAttribute("aria-pressed",b.dataset.day===d)});
+    document.querySelectorAll("[data-dayitems]").forEach(function(l){l.hidden=l.dataset.dayitems!==d});
+  }
+  document.querySelectorAll("[data-day]").forEach(function(b){b.addEventListener("click",function(){setDay(b.dataset.day)})});
+  function markNow(){
+    var now=jstNow(), today=now.slice(0,10);
+    document.querySelectorAll(".tl li.now").forEach(function(li){li.classList.remove("now")});
+    var lists=document.querySelectorAll("[data-dayitems]");
+    lists.forEach(function(l){
+      var items=l.querySelectorAll("li[data-at]"), cur=null;
+      items.forEach(function(li){ if(li.dataset.at.slice(0,10)===today && li.dataset.at<=now) cur=li; });
+      if(cur) cur.classList.add("now");
+    });
+    return today;
+  }
+  var today=markNow();
+  var startDay=today==="2026-11-20"?"20":today==="2026-11-21"?"21":"19";
+  setDay(startDay);
+  setInterval(markNow,60000);
+
+  /* ---------- 맛집 데이터 (구글 평점·리뷰 수: 2026-11-17 기준) ---------- */
+  var FOOD=[
+    {d:"19",area:"베이사이드플레이스 · 배 타는 건물",items:[
+      {n:"하카타 도요이치",jp:"博多豊一 ベイサイドプレイス",k:"스시·해산물",r:"4.3",c:"2,400+",w:"배 타는 곳과 같은 건물",h:"목 11:00–20:00",p:"직접 골라 담는 스시가 한 점 130엔 안팎. 튀김·회는 태블릿으로 주문.",x:"현금만 · 점심엔 줄 설 수 있어요",id:"ChIJm3cMlvGRQTURjBegg6-RAVc"},
+      {n:"굴 오두막 in 베이사이드",jp:"かき小屋 in ベイサイド",k:"굴·조개구이",r:"4.2",c:"180+",w:"같은 건물 앞",h:"11:00–22:00",p:"숯불에 굴·가리비를 직접 구워 먹어요. 한국어 메뉴 있음.",x:"",id:"ChIJK5rrvciRQTUR_bYdgm7hQhc"},
+      {n:"리타 팜",jp:"Rita farm",k:"뷔페",r:"4.0",c:"370+",w:"베이사이드플레이스 1층",h:"목 11:30–15:00",p:"채소 반찬·함박스테이크·피자·디저트까지 골고루. 한 사람 2,200엔 안팎.",x:"",id:"ChIJq_z8lPGRQTURbZkTEIGlpQs"},
+      {n:"완간 시장",jp:"博多湾岸市場",k:"시장 스시",r:"4.0",c:"1,300+",w:"같은 건물",h:"10:00–20:00",p:"수산시장 안 식당. 스시를 골라 담고, 익힌 요리는 태블릿 주문.",x:"현금만",id:"ChIJ66epvPGRQTURLBMCvukqVmA"}
+    ]},
+    {d:"20",area:"시카노시마 · 점심",items:[
+      {n:"나카니시 식당",jp:"中西食堂",k:"사자에동",r:"4.4",c:"970+",w:"시카노시마항 도보 2분",h:"금 11:00–15:00",p:"섬 명물 소라덮밥(사자에동)과 짬뽕. 소라구이 세트도 인기.",x:"줄 서는 집 · 11시 오픈에 맞추면 좋아요",id:"ChIJoYc4qk6NQTUREcjoCHIXYkk"},
+      {n:"마루료",jp:"まる良",k:"숙성 생선 정식",r:"4.8",c:"140+",w:"시카노시마항 도보 4분",h:"금 12:00–15:00",p:"숙성시킨 생선회·초밥 정식. 비린내 없이 감칠맛이 깊어요. 3–4천엔대.",x:"",id:"ChIJp9mZV0mNQTURh4-x4iQtNyo"},
+      {n:"나고미 카페",jp:"なごみカフェ",k:"카레·덮밥",r:"4.6",c:"120+",w:"항구에서 도보 5분",h:"금 12:00–17:00",p:"노부부가 하는 가정식 카페. 키마카레·규동이 맛있어요.",x:"음료 1잔 주문 필요",id:"ChIJFdSg3kuNQTUR8v-Ntjg8hGU"},
+      {n:"반빌 시카노시마",jp:"Van Beell 志賀島店",k:"바다뷰 카페",r:"4.7",c:"100+",w:"섬 서쪽 해안도로 (차로)",h:"금 11:00–18:30",p:"섬 재료로 만든 토스트·소프트아이스크림. 바다가 바로 보여요.",x:"",id:"ChIJAZWar_TzQTURzk1zcocHJLw"}
+    ]},
+    {d:"20",area:"하카타역 · 쇼핑하다 늦은 점심",items:[
+      {n:"리큐 (소혀구이)",jp:"利久 JR博多シティ",k:"규탄",r:"4.2",c:"950+",w:"JR하카타시티 9층",h:"11:00–22:30",p:"두툼한 소혀구이 정식. 밥 양은 무료로 조절.",x:"점심때 15–20분 기다릴 수 있어요",id:"ChIJBVmI6seRQTUR9bUZGrYKrzA"},
+      {n:"닌교초 이마한",jp:"人形町今半",k:"스키야키",r:"4.5",c:"670+",w:"JR하카타시티 9층",h:"11:00–16:00, 17:00–22:00",p:"직원이 옆에서 하나씩 익혀주는 와규 스키야키. 어른들 대접용.",x:"가격 높음 · 예약 권장",id:"ChIJBVmI6seRQTURtmFXqdZSsKU"},
+      {n:"니시진 하쓰키",jp:"西新 初喜 博多店",k:"스키야키·샤부샤부",r:"4.3",c:"260+",w:"아뮤플라자 10층",h:"11:00–15:00, 17:00–22:00",p:"국물 넉넉한 간토식 스키야키·샤부샤부 세트.",x:"",id:"ChIJj_pOrFiRQTURv5tA138l4mU"},
+      {n:"딘타이펑",jp:"鼎泰豐 アミュプラザ博多",k:"샤오룽바오",r:"4.0",c:"380+",w:"아뮤플라자 9층",h:"11:00–22:00",p:"익숙한 맛이라 부담 없이. 창가 자리 전망이 좋아요.",x:"",id:"ChIJQ2RitM2RQTUR1JHdbb2Dfhk"}
+    ]},
+    {d:"20",area:"호텔 근처 · 저녁",items:[
+      {n:"마에다야 모츠나베",jp:"もつ鍋 前田屋 中洲",k:"모츠나베",r:"4.6",c:"1,500+",w:"호텔 도보 2분",h:"금 17:00–24:00",p:"부드러운 곱창 전골. 매운맛 국물이 인기, 마지막에 짬뽕면 추가.",x:"작아서 줄 길어요 · 자릿세 1인 380엔",id:"ChIJoQ2mQpWRQTURuyTWXKznM7k"},
+      {n:"모츠나베 기쿠타케",jp:"博多もつ鍋 菊武",k:"모츠나베",r:"4.9",c:"380+",w:"호텔 도보 7분 (6층)",h:"금 18:00–23:00",p:"나카스 강이 내려다보이는 자리. 된장·간장 국물 중 고르기.",x:"자릿세 1인 400엔",id:"ChIJFUTxFiyRQTUR-CfzmMPovYo"},
+      {n:"미즈타키 도리덴",jp:"博多水炊き とり田",k:"미즈타키",r:"4.4",c:"1,900+",w:"호텔 도보 11분",h:"금 17:00–23:00",p:"진한 닭 육수 전골. 마지막 죽(조스이)까지 직원이 만들어줘요. 어른들 입맛에 딱.",x:"예약 필수",id:"ChIJs0-UX-uRQTURkYi-DvhX3S0"},
+      {n:"하카타 하나미도리",jp:"博多華味鳥 中洲",k:"미즈타키 코스",r:"4.4",c:"1,000+",w:"호텔 도보 12분",h:"금 17:00–23:00",p:"닭 코스 요리. 개별 룸이 있어 가족끼리 조용히.",x:"예약 필요",id:"ChIJk0ckBZORQTURQrXEqImQMx0"},
+      {n:"야키토리 구로다",jp:"やきとり くろだ",k:"야키토리",r:"4.5",c:"390+",w:"호텔 도보 2분 (같은 기온마치)",h:"금 18:00–01:00",p:"동네 단골집 분위기의 꼬치구이. 감자샐러드 서비스.",x:"작은 가게 · 예약 권장",id:"ChIJIZPL67-RQTURWO5BSchC0Wo"},
+      {n:"완 교자",jp:"ワン餃子",k:"교자·볶음밥",r:"4.4",c:"1,500+",w:"호텔 도보 6분",h:"금 17:30–01:00",p:"한입 교자와 차슈 볶음밥이 대표. 눈앞에서 바로 볶아줘요.",x:"좁고 북적여요",id:"ChIJMargXpSRQTURNkogWlX1Uzw"},
+      {n:"무한교자 나카스카와바타",jp:"博多鉄なべ 無限餃子",k:"철냄비 교자",r:"4.2",c:"280+",w:"호텔 도보 3분",h:"11:30–23:00",p:"바삭한 철냄비 교자, 닭육수 물만두. 차분한 분위기.",x:"1인 1음료",id:"ChIJ3UsWpIGRQTURSVIqYLN858A"},
+      {n:"라멘 지난보",jp:"らーめん二男坊 キャナルシティ",k:"돈코츠 라멘",r:"4.3",c:"440+",w:"캐널시티 5층 라멘스타디움 · 도보 5분",h:"11:00–22:30",p:"진하지만 느끼하지 않은 하카타 라멘. 반숙 달걀이 일품.",x:"",id:"ChIJaxduH76RQTURky9eR9BiSwE"},
+      {n:"이치란 캐널시티",jp:"一蘭 キャナルシティ博多",k:"돈코츠 라멘",r:"4.1",c:"2,100+",w:"캐널시티 노스빌딩 지하 1층 · 도보 3분",h:"09:30–23:00",p:"맛 진하기·면 굵기를 골라 주문. 한국어 주문표 있음.",x:"",id:"ChIJaxduH76RQTURRutPwIh-GII"}
+    ]},
+    {d:"21",area:"오호리 공원 근처 · 점심",items:[
+      {n:"가오가오 오호리",jp:"gaogao 大濠",k:"꽃바구니 정식",r:"4.2",c:"500+",w:"스타벅스에서 도보 10분",h:"토 11:00–16:00",p:"작은 반찬이 바구니에 담겨 나오고, 솥밥과 디저트까지. 도미 명란 오차즈케 추천.",x:"",id:"ChIJoSm2hfKTQTURHuL_8Oxc_rw"},
+      {n:"가타루",jp:"かたる 唐人町",k:"생선 정식",r:"4.5",c:"130+",w:"공원 북서쪽 · 도보 14분",h:"11:00–21:00",p:"전갱이튀김 같은 생선 정식에 반찬이 푸짐. 따뜻한 분위기.",x:"",id:"ChIJ2Zg_3PmTQTURJZwK8BSgFOc"},
+      {n:"오무스비 오토모",jp:"おむすびOTOMO",k:"주먹밥·돼지된장국",r:"4.8",c:"110+",w:"공원 남쪽 · 도보 11분",h:"토 07:30–15:00",p:"갓 만든 주먹밥과 돼지고기 된장국(돈지루). 가볍게 먹기 좋아요. 포장 가능.",x:"",id:"ChIJN2hULsyRQTURhKSxX1j3D7w"},
+      {n:"스타벅스 오호리공원점",jp:"スターバックス 福岡大濠公園店",k:"카페",r:"4.4",c:"2,600+",w:"공원 안 호숫가",h:"07:00–21:00",p:"점심 후 호수 보며 커피 한 잔.",x:"주말엔 자리 경쟁",id:"ChIJh5cLLs2TQTURGa004wXjn_g"}
+    ]}
+  ];
+
+  /* ---------- 쇼핑 데이터 ---------- */
+  var SHOP=[
+    {n:"스탠다드프로덕츠",jp:"Standard Products 博多バスターミナル店",mall:"하카타 버스터미널",f:"5층",h:"09:00–21:00",w:"하카타역 바로 옆 · 호텔 도보 13분",p:"다이소의 좀 더 고급 브랜드. 같은 층에 다이소·스리피도 있어요.",x:"",id:"ChIJ8RwFNh-RQTUREA3GJvRETTs"},
+    {n:"무인양품 (하카타역)",jp:"無印良品 アミュプラザ博多",mall:"아뮤플라자 하카타 (JR하카타시티)",f:"6층",h:"10:00–20:00",w:"하카타역 직결",p:"옷·생활용품·식품. 면세 가능.",x:"",id:"ChIJPTGf7MeRQTUR2Jc8IfwNnFg"},
+    {n:"무인양품 (캐널시티)",jp:"無印良品 キャナルシティ博多",mall:"캐널시티 하카타 노스빌딩",f:"3–4층",h:"10:00–21:00",w:"호텔 도보 3분",p:"2개 층 대형 매장 + 카페 MUJI(3층). 저녁 시내 구경 때 들르기 좋아요.",x:"",id:"ChIJNXVUf5WRQTUR_R7Zv1Qg6JM"},
+    {n:"유니클로",jp:"ユニクロ KITTE博多",mall:"KITTE 하카타",f:"8층",h:"10:00–21:00",w:"하카타역 하카타구치 바로 앞",p:"하카타역 주변에서 가장 큰 유니클로. 계산이 빠르고 면세 돼요.",x:"엘리베이터가 느려서 에스컬레이터가 빨라요",id:"ChIJ4VWLZbiRQTUR_B4Kc0ET2cg"},
+    {n:"칼디 (마루이)",jp:"カルディ 博多マルイ店",mall:"KITTE 하카타 · 하카타 마루이",f:"2층",h:"10:00–21:00",w:"유니클로와 같은 건물",p:"세 매장 중 가장 한산해요. 커피·과자·소스류.",x:"",id:"ChIJ_67Nh1GRQTUR9aPl2r88wis"},
+    {n:"칼디 (마잉)",jp:"カルディ マイング博多",mall:"하카타역 마잉 (기념품 거리)",f:"1층",h:"09:00–21:00",w:"역 안 · 개찰구 근처",p:"역 기념품 거리 안이라 들르기 쉬워요.",x:"",id:"ChIJIchX0ceRQTUR-2HwP9tggd8"},
+    {n:"몽벨 (텐진)",jp:"モンベル 福岡天神店",mall:"NTT-KF 빌딩 (텐진)",f:"1층",h:"10:30–21:00",w:"21일 지하철 텐진역에서 도보 7분",p:"하카타역 쪽엔 매장이 없어서 텐진점이 가장 가까워요. 오호리 공원 가는 길에 들르기.",x:"면세가 안 된다는 후기가 있어요",id:"ChIJCyMyd4WRQTURSWPscuG_hLw"}
+  ];
+
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+  function mapUrl(jp,id){return "https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(jp)+"&query_place_id="+id}
+  function foodCard(f){
+    return '<article class="place"><div class="top-row"><div><h3>'+esc(f.n)+'</h3><span class="jp">'+esc(f.jp)+'</span></div><span class="kind">'+esc(f.k)+'</span></div>'+
+      '<div class="meta"><span class="star">구글 '+f.r+' · 리뷰 '+f.c+'</span><span>'+esc(f.w)+'</span><span>'+esc(f.h)+'</span></div>'+
+      '<p>'+esc(f.p)+'</p>'+(f.x?'<p class="warn">⚠ '+esc(f.x)+'</p>':'')+
+      '<a class="btn full" href="'+mapUrl(f.jp,f.id)+'" target="_blank" rel="noopener">지도 열기</a></article>';
+  }
+  function setFoodDay(d){
+    document.querySelectorAll("[data-fday]").forEach(function(b){b.setAttribute("aria-pressed",b.dataset.fday===d)});
+    document.getElementById("food-list").innerHTML=FOOD.filter(function(g){return g.d===d}).map(function(g){
+      return '<h3 class="area">'+esc(g.area)+'</h3>'+g.items.map(foodCard).join("");
+    }).join("");
+  }
+  document.querySelectorAll("[data-fday]").forEach(function(b){b.addEventListener("click",function(){setFoodDay(b.dataset.fday)})});
+  document.querySelectorAll("[data-goday]").forEach(function(a){a.addEventListener("click",function(){setFoodDay(a.dataset.goday)})});
+  document.getElementById("shop-list").innerHTML=SHOP.map(function(s){
+    return '<article class="place"><div class="top-row"><div><h3>'+esc(s.n)+'</h3><span class="jp">'+esc(s.jp)+'</span></div></div>'+
+      '<div class="meta"><span class="floor">'+esc(s.mall)+' '+esc(s.f)+'</span><span>'+esc(s.h)+'</span><span>'+esc(s.w)+'</span></div>'+
+      '<p>'+esc(s.p)+'</p>'+(s.x?'<p class="warn">⚠ '+esc(s.x)+'</p>':'')+
+      '<a class="btn full" href="'+mapUrl(s.jp,s.id)+'" target="_blank" rel="noopener">지도 열기</a></article>';
+  }).join("");
+
+  setFoodDay(startDay);
+  /* ---------- copy ---------- */
+  document.querySelectorAll("[data-copy]").forEach(function(b){
+    b.addEventListener("click",function(){
+      var t=b.dataset.copy;
+      function done(){b.textContent="복사됨";setTimeout(function(){b.textContent="복사"},1500)}
+      function fallback(){var a=document.createElement("textarea");a.value=t;document.body.appendChild(a);a.select();try{document.execCommand("copy");done()}catch(e){}a.remove()}
+      if(navigator.clipboard&&window.isSecureContext) navigator.clipboard.writeText(t).then(done,fallback); else fallback();
+    });
+  });
+
+  /* ---------- taxi sheet ---------- */
+  var places={
+    kyuka:{name:"休暇村 志賀島",addr:"〒811-0325\n福岡県福岡市東区勝馬1803-1",tel:"092-603-6631"},
+    croom:{name:"西鉄ホテル クルーム\n博多祇園 櫛田神社前",addr:"〒812-0038\n福岡県福岡市博多区祇園町6-30",tel:"092-235-5050"},
+    bayside:{name:"博多ふ頭 第1ターミナル\n(ベイサイドプレイス博多)",addr:"市営渡船 志賀島行き のりば\n福岡市博多区築港本町13-6",tel:""},
+    airport:{name:"福岡空港\n国際線ターミナル",addr:"International Terminal",tel:""}
+  };
+  var sheet=document.getElementById("sheet"), lastBtn=null;
+  document.querySelectorAll("[data-taxi]").forEach(function(b){
+    b.addEventListener("click",function(){
+      var p=places[b.dataset.taxi]; lastBtn=b;
+      document.getElementById("s-name").textContent=p.name;
+      document.getElementById("s-addr").textContent=p.addr;
+      document.getElementById("s-tel").textContent=p.tel?"☎ "+p.tel:"";
+      sheet.classList.add("on"); document.getElementById("s-close").focus();
+    });
+  });
+  function closeSheet(){sheet.classList.remove("on"); if(lastBtn) lastBtn.focus()}
+  document.getElementById("s-close").addEventListener("click",closeSheet);
+  document.addEventListener("keydown",function(e){if(e.key==="Escape"&&sheet.classList.contains("on"))closeSheet()});
+
+  /* ---------- weather & money (live) ---------- */
+  var infoLoaded=false, krwPerYen=null;
+  function loadInfo(){ if(infoLoaded) return; infoLoaded=true; loadWeather(); loadRate(); }
+
+  var WX={0:["☀️","맑음"],1:["🌤","대체로 맑음"],2:["⛅","구름 조금"],3:["☁️","흐림"],45:["🌫","안개"],48:["🌫","안개"]};
+  function wxOf(c){
+    if(WX[c]) return WX[c];
+    if(c>=51&&c<=57) return ["🌦","이슬비"];
+    if(c>=61&&c<=67) return ["🌧","비"];
+    if(c>=71&&c<=77) return ["🌨","눈"];
+    if(c>=80&&c<=82) return ["🌦","소나기"];
+    if(c>=95) return ["⛈","천둥번개"];
+    return ["☁️","흐림"];
+  }
+  var DOW=["일","월","화","수","목","금","토"];
+  function loadWeather(){
+    var box=document.getElementById("wx");
+    fetch("https://api.open-meteo.com/v1/forecast?latitude=33.59&longitude=130.40&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,wind_speed_10m_max&timezone=Asia%2FTokyo&forecast_days=16")
+    .then(function(r){if(!r.ok)throw 0;return r.json()})
+    .then(function(j){
+      var d=j.daily, idx=[];
+      d.time.forEach(function(t,i){ if(t>="2026-11-19"&&t<="2026-11-21") idx.push(i); });
+      var isTrip=idx.length>0;
+      if(!isTrip) idx=[0,1,2];
+      var html="", maxWind=0, minT=99, rainy=false;
+      idx.forEach(function(i){
+        var w=wxOf(d.weather_code[i]), dt=new Date(d.time[i]+"T12:00:00+09:00");
+        var wind=d.wind_speed_10m_max[i]/3.6;
+        maxWind=Math.max(maxWind,wind); minT=Math.min(minT,d.temperature_2m_min[i]);
+        if((d.precipitation_probability_max[i]||0)>=50) rainy=true;
+        html+='<div><div class="d">'+(dt.getMonth()+1)+'/'+dt.getDate()+' ('+DOW[dt.getDay()]+')</div>'+
+          '<div class="i" aria-hidden="true">'+w[0]+'</div><div class="s">'+w[1]+'</div>'+
+          '<div class="t">'+Math.round(d.temperature_2m_max[i])+'° / '+Math.round(d.temperature_2m_min[i])+'°</div>'+
+          '<div class="r">비 '+(d.precipitation_probability_max[i]==null?'-':d.precipitation_probability_max[i])+'%</div>'+
+          '<div class="r">바람 '+wind.toFixed(0)+'m/s</div></div>';
+      });
+      box.innerHTML=html;
+      var tip=[];
+      if(!isTrip) tip.push("여행 날짜 예보가 아직 없어서 가까운 날 예보를 보여드려요.");
+      if(minT<10) tip.push("아침저녁 쌀쌀해요. 두꺼운 겉옷 챙기기.");
+      else tip.push("바닷바람 부는 섬 일정이 있어요. 얇은 겉옷 하나 더 챙기기.");
+      if(rainy) tip.push("비 소식 있어요. 접이식 우산 챙기기.");
+      if(maxWind>=8) tip.push("바람이 강한 날은 배가 흔들리거나 결항될 수 있어요.");
+      document.getElementById("wx-tip").textContent=tip.join(" ");
+    })
+    .catch(function(){
+      box.innerHTML='<div style="grid-column:1/-1"><div class="s">날씨를 불러오지 못했어요. 인터넷 연결을 확인하고 이 탭을 다시 열어주세요.</div></div>';
+      infoLoaded=false;
+    });
+  }
+
+  var QUICK=[500,1000,3000,5000,10000,30000];
+  function won(n){return Math.round(n).toLocaleString("ko-KR")+"원"}
+  function calc(){
+    var v=parseFloat(document.getElementById("yen").value)||0;
+    document.getElementById("won").textContent=krwPerYen?"= "+won(v*krwPerYen):"환율을 불러오는 중이에요";
+  }
+  document.getElementById("yen").addEventListener("input",calc);
+  function loadRate(){
+    fetch("https://open.er-api.com/v6/latest/JPY")
+    .then(function(r){if(!r.ok)throw 0;return r.json()})
+    .then(function(j){
+      if(!j.rates||!j.rates.KRW) throw 0;
+      krwPerYen=j.rates.KRW;
+      document.getElementById("rate").textContent="100엔 = "+won(krwPerYen*100);
+      document.getElementById("quick").innerHTML=QUICK.map(function(y){return "<tr><td>"+y.toLocaleString("ko-KR")+"엔</td><td>"+won(y*krwPerYen)+"</td></tr>"}).join("");
+      var t=j.time_last_update_unix?new Date(j.time_last_update_unix*1000):null;
+      document.getElementById("rate-time").textContent=(t?"기준 "+(t.getMonth()+1)+"/"+t.getDate()+" · ":"")+"참고용이에요. 카드·환전소 환율과 조금 달라요.";
+      calc();
+    })
+    .catch(function(){
+      document.getElementById("rate").textContent="불러오지 못했어요";
+      document.getElementById("rate-time").textContent="인터넷 연결을 확인하고 이 탭을 다시 열어주세요.";
+      infoLoaded=false;
+    });
+  }
+
+  show();
+})();
+</script>
+</body>
+</html>
